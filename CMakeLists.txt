@@ -17,10 +17,10 @@ find_package(pybind11 PATHS ${__pybind_path})
 
 
 if(NOT MSVC)
-  set(CMAKE_CXX_FLAGS "-std=c++17 -O2 -march=native ${CMAKE_CXX_FLAGS}")
+  set(CMAKE_CXX_FLAGS "-std=c++11 -O2 -march=native ${CMAKE_CXX_FLAGS}")
   set(CMAKE_CUDA_STANDARD 14)
 else()
-  set(CMAKE_CXX_FLAGS "/std:c++17 -O2 -march=native ${CMAKE_CXX_FLAGS}")
+  set(CMAKE_CXX_FLAGS "/std:c++11 -O2 -march=native ${CMAKE_CXX_FLAGS}")
   set(CMAKE_CUDA_STANDARD 14)
 endif()
 
@@ -70,7 +70,7 @@ if(CUDA_FOUND)
   endif()
 
   # set arch flags properly
-  CUDA_ADD_LIBRARY(ndarray_backend_cuda MODULE src/ndarray_backend_cuda.cu OPTIONS ${ARCH_FLAGS})
+  CUDA_ADD_LIBRARY(ndarray_backend_cuda MODULE src/ndarray_backend_cuda.cu OPTIONS ${ARCH_FLAGS} "--extended-lambda")
 
   target_link_libraries(ndarray_backend_cuda ${LINKER_LIBS})
   pybind11_extension(ndarray_backend_cuda)

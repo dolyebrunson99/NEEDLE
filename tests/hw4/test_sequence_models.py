@@ -1,6 +1,9 @@
 import sys
 sys.path.append('./python')
 sys.path.append('./apps')
+
+print('\n'.join(sys.path))
+
 import numpy as np
 import pytest
 import torch
@@ -12,6 +15,8 @@ import needle.nn as nn
 
 from simple_ml import *
 from models import LanguageModel
+
+# assert 0 == 1
 
 
 np.random.seed(3)

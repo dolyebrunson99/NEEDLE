@@ -213,6 +213,10 @@ class NDArray:
             return self
         else:
             out = NDArray.make(self.shape, device=self.device)
+            print(f"shape = {self.shape}")
+            print(f"strides = {self.strides}")
+            print(f"offset = {self._offset}")
+            print(f"=======================")
             self.device.compact(
                 self._handle, out._handle, self.shape, self.strides, self._offset
             )
@@ -386,6 +390,10 @@ class NDArray:
         view = self.__getitem__(idxs)
         if isinstance(other, NDArray):
             assert prod(view.shape) == prod(other.shape)
+            print(f"shape = {view.shape}")
+            print(f"strides = {view.strides}")
+            print(f"offset = {view._offset}")
+            print(f"=======================")
             self.device.ewise_setitem(
                 other.compact()._handle,
                 view._handle,

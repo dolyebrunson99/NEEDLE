@@ -110,8 +110,10 @@ void Compact(const AlignedArray& a, AlignedArray* out, std::vector<int32_t> shap
   int ndim = shape.size();
   int32_t num_elements = std::accumulate(shape.begin(), shape.end(), 1, std::multiplies<int32_t>());
   CompactIndices comp_idxs(ndim, num_elements, shape, strides, offset);
-  for (auto [cnt, idx] : comp_idxs)
+  for (auto cnt_idx_pair : comp_idxs) {
+    int32_t cnt = cnt_idx_pair.first , idx = cnt_idx_pair.second;
     out->ptr[cnt] = a.ptr[idx];
+  }
 }
 
 void EwiseSetitem(const AlignedArray& a, AlignedArray* out, std::vector<int32_t> shape,
@@ -129,8 +131,10 @@ void EwiseSetitem(const AlignedArray& a, AlignedArray* out, std::vector<int32_t>
   int32_t ndim = shape.size();
   int32_t num_elements = std::accumulate(shape.begin(), shape.end(), 1, std::multiplies<int32_t>());
   CompactIndices comp_idxs(ndim, num_elements, shape, strides, offset);
-  for (auto [cnt, idx] : comp_idxs)
+  for (auto cnt_idx_pair : comp_idxs) {
+    int32_t cnt = cnt_idx_pair.first , idx = cnt_idx_pair.second;
     out->ptr[idx] = a.ptr[cnt];
+  }
 }    
 
 void ScalarSetitem(const size_t size, scalar_t val, AlignedArray* out, std::vector<int32_t> shape,
@@ -152,8 +156,10 @@ void ScalarSetitem(const size_t size, scalar_t val, AlignedArray* out, std::vect
   int32_t ndim = shape.size();
   int32_t num_elements = std::accumulate(shape.begin(), shape.end(), 1, std::multiplies<int32_t>());
   CompactIndices comp_idxs(ndim, num_elements, shape, strides, offset);
-  for (auto [cnt, idx] : comp_idxs)
+  for (auto cnt_idx_pair : comp_idxs) {
+    int32_t cnt = cnt_idx_pair.first , idx = cnt_idx_pair.second;
     out->ptr[idx] = val;
+  }
 }
 
 /**
